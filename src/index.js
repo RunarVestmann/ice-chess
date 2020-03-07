@@ -62,7 +62,11 @@ io.on('connection', (socket) => {
             gameInReset = true;
             setTimeout(() => {
                 game.reset();
-                io.sockets.emit('start', getGameObject(game));
+                let role = "white";
+                if(socket.id === blackId){
+                    role = "black";
+                }
+                io.sockets.emit('start', getGameObject(game), role);
                 gameInReset = false;
             },10000);
         }
