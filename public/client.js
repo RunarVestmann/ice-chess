@@ -31,13 +31,14 @@ function updateBoard(game){
     }
 }
 
-socket.on('start', (game) => {
+socket.on('start', (game, role) => {
     board = Chessboard('board', {
             position: game.fen,
             draggable:true,
             onDrop: handleMove
     });
     updateBoard(game);
+    board.orientation(role);
 });
 
 socket.on('move', (game) => {

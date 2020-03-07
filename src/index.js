@@ -20,18 +20,23 @@ server.listen(port);
 
 io.on('connection', (socket) => {
 
+    let role = 'white';
+
+    if(!whiteId)
+        whiteId = socket.id;
+    else if(!blackId){
+        blackId = socket.id;
+        role = 'black';
+    }
+        
     socket.emit('start', {
         fen: game.fen(),
         turn: game.turn(),
         in_checkmate: game.in_checkmate(),
         in_draw: game.in_draw(),
         in_check: game.in_check()
-    });
-    if(!whiteId)
-        whiteId = socket.id;
-    else if(!blackId)
-        blackId = socket.id;
-
+    }, role);
+    
     socket.on('disconnect', (reason) => {
         if(socket.id === whiteId)
             whiteId = '';
