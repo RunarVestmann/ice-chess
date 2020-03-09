@@ -20,22 +20,18 @@ server.listen(port);
 
 io.on('connection', (socket) => {
 
-    let role = 'white';
+    let role = 'spectator';
 
-    if(!whiteId)
+    if(!whiteId){
         whiteId = socket.id;
+        role = 'white';
+    }   
     else if(!blackId){
         blackId = socket.id;
         role = 'black';
     }
         
-    socket.emit('start', {
-        fen: game.fen(),
-        turn: game.turn(),
-        in_checkmate: game.in_checkmate(),
-        in_draw: game.in_draw(),
-        in_check: game.in_check()
-    }, role);
+    socket.emit('start', getGameObject(game), role);
     
     socket.on('disconnect', (reason) => {
         if(socket.id === whiteId)
@@ -62,11 +58,7 @@ io.on('connection', (socket) => {
             gameInReset = true;
             setTimeout(() => {
                 game.reset();
-                let role = "white";
-                if(socket.id === blackId){
-                    role = "black";
-                }
-                io.sockets.emit('start', getGameObject(game), role);
+                io.sockets.emit('move', getGameObject(game));
                 gameInReset = false;
             },10000);
         }

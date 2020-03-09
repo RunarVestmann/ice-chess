@@ -18,3 +18,18 @@ body{
     margin-top: 1rem;
     color:gray;
 }
+
+#promotion-menu{
+    text-align: center;
+    margin-top: 1rem;
+    display: none;
+}
+
+#promotion-menu h4{
+    color:rgb(150, 131, 28);
+}
+
+.promotion-button{
+    width: 80px;
+    height: 80px;
+}

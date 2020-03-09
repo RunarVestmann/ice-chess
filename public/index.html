@@ -11,6 +11,13 @@
 <body>
     <div id="board" style="width:400px"></div>
     <h3 id="game-status">It's White's turn</h3>
+    <div id="promotion-menu">
+        <h4>Select a promotion piece</h4>
+        <button id="queen-button" class="promotion-button" onclick="selectPromotion('q')"></button>
+        <button id="bishop-button" class="promotion-button" onclick="selectPromotion('b')"></button>
+        <button id="knight-button" class="promotion-button" onclick="selectPromotion('n')"></button>
+        <button id="rook-button" class="promotion-button" onclick="selectPromotion('r')"></button>
+    </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="lib/jquery-3.4.1.min.js"></script>
     <script src="lib/chessboard-1.0.0.min.js"></script>
